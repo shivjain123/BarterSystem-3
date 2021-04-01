@@ -7,7 +7,7 @@ import firebase from 'firebase';
 
 export default class ExchangeScreen extends Component{
     constructor(){
-        super();
+    super();
         this.state={
             emailId: firebase.auth().currentUser.email,
             itemName : '',
@@ -18,7 +18,7 @@ export default class ExchangeScreen extends Component{
     addItem = (itemName, description) => {
         var emailId = this.state.emailId
         db.collection("exchange_requests").add({
-            "email Id" : emailId,
+            "email_Id" : emailId,
             "item_name" : itemName,
             "description" : description
         })
@@ -43,7 +43,6 @@ export default class ExchangeScreen extends Component{
             <View style={{ flex: 1 }}>
                 <MyHeader title="Add Item" />
                 <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ alignItems: 'center' }}>
                         <TextInput
                             style={styles.box}
                             placeholder={"Item Name"}
@@ -54,10 +53,9 @@ export default class ExchangeScreen extends Component{
                             }}
                             value={this.state.itemName}
                         />
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
                         <TextInput
-                            multiline='true'
+                            multiline
+                            numberOfLines={4}
                             style={[styles.box, { height: 100 }]}
                             placeholder={"Description"}
                             onChangeText={(text) => {
@@ -67,7 +65,6 @@ export default class ExchangeScreen extends Component{
                             }}
                             value={this.state.description}
                         />
-                    </View>
                     <TouchableOpacity 
                     style={styles.button}
                     onPress = {()=> {this.addItem(this.state.itemName, this.state.description)}}
